@@ -1,0 +1,31 @@
+{
+  "compilerOptions": {
+    /* Visit https://aka.ms/tsconfig.json to read more about this file */
+
+    /* Basic Options */
+    "target": "es5",                          
+    "module": "commonjs",                     
+    "lib": ["es6"],                           
+    "allowJs": true,                          
+    "outDir": "./dist",                        
+    "rootDir": "./src",                         
+
+    /* Strict Type-Checking Options */
+    "strict": true,                           
+    "noImplicitAny": true,                    
+    
+    /* Module Resolution Options */ 
+    "esModuleInterop": true,                  
+    
+    /* Advanced Options */
+    "resolveJsonModule": true,                
+    "skipLibCheck": true,                     
+    "forceConsistentCasingInFileNames": true  
+  },
+  "include": [
+    "src/**/*"
+  ],
+  "exclude": [
+    "src/**/*.spec.ts"
+  ]
+}
