@@ -2,7 +2,6 @@ const { buildSchema } = require('graphql')
 
 module.exports = buildSchema(`
   type Query {
-    hello: String
     getTasks: [Task!]!
     getTask(taskId: String!): Task!
   }
@@ -14,7 +13,7 @@ module.exports = buildSchema(`
   }
 
   type Task {
-    id: String!
+    id: ID!
     title: String!
     description: String!
     status: TaskStatus

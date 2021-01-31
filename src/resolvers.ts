@@ -1,3 +1,5 @@
+import { QueryGetTaskArgs } from './generated/graphql'
+
 const tasks = [
   {
     id: '1',
@@ -26,13 +28,9 @@ const tasks = [
 ]
 
 module.exports = {
-  hello: () => {
-    return 'Hello world!'
-  },
-
   getTasks: () => tasks,
 
-  getTask: ({ taskId }: any) => {
+  getTask: ({ taskId }: QueryGetTaskArgs) => {
     return tasks.find(task => task.id === taskId)
   },
 }
