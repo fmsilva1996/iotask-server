@@ -1,0 +1,24 @@
+const { buildSchema } = require('graphql')
+
+module.exports = buildSchema(`
+  type Query {
+    hello: String
+    getTasks: [Task!]!
+    getTask(taskId: String!): Task!
+  }
+
+  enum TaskStatus {
+    TODO
+    IN_PROGRESS
+    DONE
+  }
+
+  type Task {
+    id: String!
+    title: String!
+    description: String!
+    status: TaskStatus
+  }
+
+`)
+
