@@ -1,4 +1,4 @@
-import { GraphQLResolveInfo } from 'graphql';
+import { GraphQLResolveInfo, GraphQLScalarType, GraphQLScalarTypeConfig } from 'graphql';
 export type Maybe<T> = T | null;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
 export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
@@ -11,35 +11,34 @@ export type Scalars = {
   Boolean: boolean;
   Int: number;
   Float: number;
+  DateTime: any;
 };
 
 export type Query = {
   __typename?: 'Query';
-  hello?: Maybe<Scalars['String']>;
-  getTasks: Array<Task>;
-  getTask: Task;
+  getTasks: Array<Maybe<Task>>;
+  getTask?: Maybe<Task>;
 };
 
 
 export type QueryGetTaskArgs = {
-  taskId: Scalars['String'];
+  taskId: Scalars['ID'];
 };
+
 
 export enum TaskStatus {
-  Todo = 'TODO',
+  NotStarted = 'NOT_STARTED',
   InProgress = 'IN_PROGRESS',
-  Done = 'DONE'
+  Completed = 'COMPLETED'
 }
 
-export type Node = {
-  id: Scalars['ID'];
-};
-
-export type Task = Node & {
+export type Task = {
   __typename?: 'Task';
   id: Scalars['ID'];
+  createdAt?: Maybe<Scalars['DateTime']>;
+  updatedAt?: Maybe<Scalars['DateTime']>;
   title: Scalars['String'];
-  description: Scalars['String'];
+  content?: Maybe<Scalars['String']>;
   status?: Maybe<TaskStatus>;
 };
 
@@ -122,46 +121,46 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 /** Mapping between all available schema types and the resolvers types */
 export type ResolversTypes = {
   Query: ResolverTypeWrapper<{}>;
-  String: ResolverTypeWrapper<Scalars['String']>;
-  TaskStatus: TaskStatus;
-  Node: ResolversTypes['Task'];
   ID: ResolverTypeWrapper<Scalars['ID']>;
+  DateTime: ResolverTypeWrapper<Scalars['DateTime']>;
+  TaskStatus: TaskStatus;
   Task: ResolverTypeWrapper<Task>;
+  String: ResolverTypeWrapper<Scalars['String']>;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
 };
 
 /** Mapping between all available schema types and the resolvers parents */
 export type ResolversParentTypes = {
   Query: {};
-  String: Scalars['String'];
-  Node: ResolversParentTypes['Task'];
   ID: Scalars['ID'];
+  DateTime: Scalars['DateTime'];
   Task: Task;
+  String: Scalars['String'];
   Boolean: Scalars['Boolean'];
 };
 
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
-  hello?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  getTasks?: Resolver<Array<ResolversTypes['Task']>, ParentType, ContextType>;
-  getTask?: Resolver<ResolversTypes['Task'], ParentType, ContextType, RequireFields<QueryGetTaskArgs, 'taskId'>>;
+  getTasks?: Resolver<Array<Maybe<ResolversTypes['Task']>>, ParentType, ContextType>;
+  getTask?: Resolver<Maybe<ResolversTypes['Task']>, ParentType, ContextType, RequireFields<QueryGetTaskArgs, 'taskId'>>;
 };
 
-export type NodeResolvers<ContextType = any, ParentType extends ResolversParentTypes['Node'] = ResolversParentTypes['Node']> = {
-  __resolveType: TypeResolveFn<'Task', ParentType, ContextType>;
-  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
-};
+export interface DateTimeScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['DateTime'], any> {
+  name: 'DateTime';
+}
 
 export type TaskResolvers<ContextType = any, ParentType extends ResolversParentTypes['Task'] = ResolversParentTypes['Task']> = {
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  createdAt?: Resolver<Maybe<ResolversTypes['DateTime']>, ParentType, ContextType>;
+  updatedAt?: Resolver<Maybe<ResolversTypes['DateTime']>, ParentType, ContextType>;
   title?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  description?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  content?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   status?: Resolver<Maybe<ResolversTypes['TaskStatus']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
 export type Resolvers<ContextType = any> = {
   Query?: QueryResolvers<ContextType>;
-  Node?: NodeResolvers<ContextType>;
+  DateTime?: GraphQLScalarType;
   Task?: TaskResolvers<ContextType>;
 };
 

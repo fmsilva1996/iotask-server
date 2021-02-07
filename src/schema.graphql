@@ -2,22 +2,25 @@ const { buildSchema } = require('graphql')
 
 module.exports = buildSchema(`
   type Query {
-    getTasks: [Task!]!
-    getTask(taskId: String!): Task!
+    getTasks: [Task]!
+    getTask(taskId: ID!): Task!
   }
 
+  scalar DateTime
+  
   enum TaskStatus {
-    TODO
+    NOT_STARTED
     IN_PROGRESS
-    DONE
+    COMPLETED
   }
 
   type Task {
     id: ID!
+    createdAt: DateTime
+    updatedAt: DateTime
     title: String!
-    description: String!
+    content: String
     status: TaskStatus
   }
-
 `)
 
