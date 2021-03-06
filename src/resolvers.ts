@@ -1,8 +1,5 @@
 import { QueryGetTaskArgs, Task, TaskStatus } from './generated/graphql'
 import { DateTimeResolver } from 'graphql-scalars'
-import { PrismaClient } from '@prisma/client'
-
-const prisma = new PrismaClient()
 
 const tasks = [
   {
