@@ -47,12 +47,12 @@
     "lint-staged": "^10.5.3",
     "nodemon": "^2.0.7",
     "prettier": "^2.2.1",
-    "prisma": "^2.16.0",
     "rimraf": "^3.0.2",
     "ts-jest": "^26.5.0",
     "ts-node": "^9.1.1",
     "typescript": "^4.1.3"
   },
+  "dependencies": {},
   "husky": {
     "hooks": {
       "pre-commit": "lint-staged"
@@ -93,8 +93,5 @@
       "jest-watch-typeahead/testname"
     ],
     "resetMocks": true
-  },
-  "dependencies": {
-    "@prisma/client": "^2.16.0"
   }
 }
